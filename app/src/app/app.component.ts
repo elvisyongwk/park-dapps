@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SmartContractsService } from './smart-contracts/smart-contracts.service';
+import { Contract } from 'web3-eth-contract';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +9,18 @@ import { SmartContractsService } from './smart-contracts/smart-contracts.service
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  contract: any;
   accounts: any;
+  helloWorld: any;
 
   constructor(
     private smartContractService: SmartContractsService
   ) {}
 
   ngOnInit() {
-    this.contract = this.smartContractService.getSimpleSmartContract();
     this.accounts = this.smartContractService.getAccounts();
-
-    console.log(this.contract);
-    console.log(this.accounts);
+    const contract = this.smartContractService.getHelloWorld() as Contract;
+    contract.methods.hello().call().then((result: any) => {
+      this.helloWorld = result;
+    });
   }
 }
