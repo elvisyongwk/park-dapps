@@ -1,5 +1,11 @@
 It works!
 {{ accounts | json }}
-<br/>
-<br/>
-{{ helloWorld | json }}
+<br />
+<br />
+{{ availableParkings | json }}
+
+<input type="text" [formControl]="parkingNumberControl">
+
+<button (click)="createParking()">
+    Create Parking
+</button>
